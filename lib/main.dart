@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -44,35 +45,43 @@ class MyHomePage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: transactionList.map((tx) {
-                return Row(children: [
-                  Container(
-                      margin: EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.purple)),
-                      child: Padding(
-                          padding: EdgeInsets.all(4.0),
-                          child: Text(
-                            tx.amount.toString(),
+                return Card(
+                  elevation: 10,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Row(children: [
+                      Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 2, color: Colors.purple)),
+                          child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text(
+                                '${tx.amount.toString()} €',
+                                style: TextStyle(
+                                    color: Colors.purple,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.0),
+                              ))),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tx.title,
                             style: TextStyle(
-                                color: Colors.purple,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0),
-                          ))),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tx.title,
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(tx.date.toString(),
-                          style: TextStyle(fontSize: 15.0, color: Colors.grey))
-                    ],
-                  )
-                ]);
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(DateFormat("dd/MM/yyyy").format(tx.date),
+                              style:
+                                  TextStyle(fontSize: 15.0, color: Colors.grey))
+                        ],
+                      )
+                    ]),
+                  ),
+                );
               }).toList(),
             )
           ],
