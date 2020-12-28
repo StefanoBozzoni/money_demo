@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './widgets/transaction_list.dart';
+import 'package:money_demo/widgets/user_transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,24 +20,26 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: Text('Flutter App'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 100,
-              width: double.infinity,
-              child: Card(
-                child: Center(
-                  child: Text(
-                    "MONEY CHART",
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                height: 100,
+                width: double.infinity,
+                child: Card(
+                  child: Center(
+                    child: Text(
+                      "MONEY CHART",
+                    ),
                   ),
+                  elevation: 5,
                 ),
-                elevation: 5,
               ),
-            ),
-            TransactionList(),
-          ],
+              UserTransaction(),
+            ],
+          ),
         ));
   }
 }
