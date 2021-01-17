@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:money_demo/widgets/new_transaction.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> _transactions;
+  final TransactionOperation _operations;
 
-  TransactionList(this._transactions);
+  TransactionList(this._transactions, this._operations);
 
   @override
   Widget build(BuildContext context) {
@@ -32,22 +34,34 @@ class TransactionList extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0),
                         ))),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      _transactions[idx].title,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                        DateFormat("dd/MM/yyyy")
-                            .format(_transactions[idx].date),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _transactions[idx].title,
                         style: TextStyle(
-                            fontSize: 15.0, color: Colors.grey.shade600))
-                  ],
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                          DateFormat("dd/MM/yyyy")
+                              .format(_transactions[idx].date),
+                          style: TextStyle(
+                              fontSize: 15.0, color: Colors.grey.shade600))
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      _operations.deleteTransaction(_transactions[idx].id);
+                    },
+                    color: Theme.of(context).primaryColor,
+                  ),
                 )
               ]),
             ),

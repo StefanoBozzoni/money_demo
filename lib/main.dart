@@ -45,16 +45,25 @@ class _MyHomePageState extends State<MyHomePage>
   }
 
   @override
-  void addNewTransaction(String txtitle, double txamount) {
+  void addNewTransaction(String txtitle, double txamount, DateTime aDate) {
     //void addNewTransaction(String txtitle, double txamount) {
     Transaction ntx = Transaction(
         id: DateTime.now().toString(),
         title: txtitle,
         amount: txamount,
-        date: DateTime.now());
+        date: aDate);
 
     setState(() {
       _transactions.add(ntx);
+    });
+  }
+
+  @override
+  void deleteTransaction(String pId) {
+    setState(() {
+      _transactions.removeWhere((el) {
+        return el.id == pId;
+      });
     });
   }
 
@@ -90,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage>
                 elevation: 5,
               ),
             ),
-            TransactionList(_transactions),
+            TransactionList(_transactions, this),
           ],
         ),
       ),
